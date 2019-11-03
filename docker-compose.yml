@@ -1,0 +1,19 @@
+version: "2"
+services:
+  chat-ms:
+    build: .
+    labels:
+      io.rancher.scheduler.affinity:host_label: "id=n3"
+    ports:
+      - "3001:3001"
+    links:
+      - chat-db
+  chat-db:
+    image: mongo
+    volumes:
+      - /data/mongodb/db:/data/db
+    labels:
+      io.rancher.scheduler.affinity:host_label: "id=n3"
+    ports:
+      - "3307:3307"
+      - "27017:27017"
