@@ -15,5 +15,4 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: "id=n3"
     ports:
-      - "3307:3307"
       - "27017:27017"
