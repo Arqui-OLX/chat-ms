@@ -68,7 +68,7 @@ app.post('/room', cors(), function (req, res) {
 
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('User connected');
 
   socket.on('subscribe', function(room) {
     console.log('joining room', room);
@@ -87,8 +87,13 @@ io.on('connection', function(socket){
       }
     });
   
+    
     io.in(data.room).emit('conversation private post', {
-        message: data.message
+        
+        userID: data.userID,
+        message: data.message,
+
+
     });
   });
 
