@@ -26,7 +26,7 @@ app.get('/:id/room', cors(), function(req, res){
           var user;
 
           if (data[i].users.sellerID == req.params.id) {
-            user = data[i].users.clientID;
+            user = data[i].users.buyerID;
           } else {
             user = data[i].users.sellerID;
           }
