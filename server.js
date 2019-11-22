@@ -1,20 +1,21 @@
 var express = require('express');
-var cors = require('cors')
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var Chat = require("./model/chatRoom");
-
+var cors = require('cors');
 var port = 3001;
 
 
 app.use(express.json());
+app.use(cors());
 
-app.get('/', cors(), function(req, res){
+
+app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/:id/room', cors(), function(req, res){
+app.get('/:id/room', function(req, res){
   Chat.find( {$or: [ {"users.buyerID": parseInt(req.params.id) }, {"users.sellerID": parseInt(req.params.id)} ]}, function(err, data) {
     if(err) {
         res.send('Error al obtener la lista de chat rooms');
@@ -39,7 +40,7 @@ app.get('/:id/room', cors(), function(req, res){
   });
 });
 
-app.get('/:id_room', cors(), function(req, res) {
+app.get('/:id_room', function(req, res) {
   Chat.find({"_id": req.params.id_room}, 'messages',function(err, data) {
     if(err) {
       res.send('Error al obtener la lista de mensajes');
@@ -51,7 +52,7 @@ app.get('/:id_room', cors(), function(req, res) {
 });
 
 
-app.post('/room', cors(), function (req, res) {
+app.post('/room', function (req, res) {
 
     var chat = new Chat(req.body)
     chat.save(function(err, data) {
