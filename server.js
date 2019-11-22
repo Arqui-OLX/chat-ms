@@ -4,7 +4,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var Chat = require("./model/chatRoom");
 var cors = require('cors');
-var port = 3001;
+var port = 3000;
 
 
 app.use(express.json());
